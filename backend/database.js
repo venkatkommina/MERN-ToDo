@@ -19,4 +19,14 @@ const connectToMongoDB = async () => {
   }
 };
 
-export { connectToMongoDB };
+const todoSchema = new mongoose.Schema({
+  todo: String,
+  completed: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const todo = mongoose.model("Todo", todoSchema);
+
+export { connectToMongoDB, todo };

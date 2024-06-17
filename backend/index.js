@@ -12,6 +12,8 @@ app.use(cors());
 
 app.use("/api", router);
 
+app.use(express.json());
+
 async function startServer() {
   await connectToMongoDB();
   app.listen(port, () => {
