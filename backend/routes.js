@@ -1,10 +1,12 @@
 import express from "express";
 
 import { todo } from "./database.js";
+import cors from "cors";
 
 const router = express.Router();
 
 router.use(express.json());
+router.use(cors());
 
 router.get("/todos", async (req, res) => {
   const todos = await todo.find({});
@@ -14,9 +16,14 @@ router.get("/todos", async (req, res) => {
 router.post("/todos", async (req, res) => {
   const createTodo = req.body.todo;
 
-  const newTodo = await todo.create({ todo: createTodo });
+  if (createTodo === undefined) {
+    return res.status(400).json({ message: "Todo cannot be empty" });
+  }
 
-  res.status(201).json({ newTodo, _id: newTodo._id });
+  const newTodo = new todo({ todo: createTodo });
+  await newTodo.save();
+
+  res.status(201).json(newTodo);
 });
 
 router.delete("/todos/:id", async (req, res) => {
@@ -27,7 +34,10 @@ router.delete("/todos/:id", async (req, res) => {
 
 router.put("/todos/:id", async (req, res) => {
   const id = req.params.id;
-  const completed = req.body.completed; //I can do using findById(), but okay let's see how he has done this!!
+  const completed = req.body.completed; //would also've done this using findByid and then updating
+  if (typeof completed !== "boolean") {
+    return res.status(400).json({ message: "Invalid status" });
+  }
   const updatedTodo = await todo.updateOne(
     { _id: id },
     {
