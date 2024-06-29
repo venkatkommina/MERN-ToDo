@@ -25,8 +25,22 @@ const todoSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-const todo = mongoose.model("Todo", todoSchema);
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
 
-export { connectToMongoDB, todo };
+const Todo = mongoose.model("Todo", todoSchema);
+const User = mongoose.model("User", userSchema);
+
+export { connectToMongoDB, Todo, User };

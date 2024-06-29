@@ -8,6 +8,29 @@ body {
   box-sizing: border-box;
 }
 
+.container {
+  position: relative;
+}
+
+.logoutButton {
+  height: fit-content;
+  width: fit-content;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logoutButton:hover {
+  background-color: darkred;
+}
+
 .container h1 {
   font-family: "Playwrite PL", sans-serif;
   text-align: center;
@@ -106,6 +129,8 @@ body {
 }
 
 .addTodo {
+  height: fit-content;
+  width: fit-content;
   padding: 10px 20px;
   margin: 10px 0;
   border: none;
