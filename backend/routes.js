@@ -33,7 +33,6 @@ const authenticateToken = (req, res, next) => {
 };
 
 router.post("/api/validateToken", (req, res) => {
-  //for testing purposes
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
